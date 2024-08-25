@@ -23,7 +23,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("HomePage"),
+        title: const Text("Beep"),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           PopupMenuButton(
             offset: Offset(0.0, appBarHeight),
@@ -40,10 +44,8 @@ class _HomePageState extends State<HomePage> {
                   title: 'Profile',
                   iconData: Icons.person,
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
                   }),
             ],
           ),

@@ -60,4 +60,18 @@ class AuthService {
   Future<void> signOut() async {
     return await _auth.signOut();
   }
+
+  // Function to fetch user data from Firestore
+  Future<Map<String, dynamic>?> getUserData() async {
+    User? user = getCurrentUser();
+
+    if (user != null) {
+      DocumentSnapshot<Map<String, dynamic>> userData =
+          await _firestore.collection('Users').doc(user.uid).get();
+
+      return userData.data();
+    } else {
+      return null; // No user is signed in
+    }
+  }
 }

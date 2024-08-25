@@ -32,6 +32,10 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(recieverEmail),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Column(
         children: [
@@ -109,7 +113,7 @@ class ChatPage extends StatelessWidget {
 
   Widget _buildUserInput() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50.0),
+      padding: const EdgeInsets.only(bottom: 25.0),
       child: Row(
         children: [
           // Text field takes the most of space
