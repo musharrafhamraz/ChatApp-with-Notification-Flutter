@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("  B  E  E  P"),
@@ -142,9 +143,13 @@ class _HomePageState extends State<HomePage> {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(iconData, color: Colors.black),
+          Icon(iconData, color: Theme.of(context).colorScheme.inversePrimary),
           const SizedBox(width: 16), // Adds space between icon and text
-          Text(title),
+          Text(
+            title,
+            style:
+                TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+          ),
         ],
       ),
     );

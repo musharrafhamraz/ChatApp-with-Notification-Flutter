@@ -4,15 +4,20 @@ import 'package:chat_app/components/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class LoginPage extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pwController = TextEditingController();
-
+class LoginPage extends StatefulWidget {
   final void Function()? onTap;
   LoginPage({super.key, required this.onTap});
 
-  // login function
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _pwController = TextEditingController();
+
+  // login function
   login(BuildContext context) async {
     // auth service
     final authService = AuthService();
@@ -29,6 +34,14 @@ class LoginPage extends StatelessWidget {
                 title: Text(e.toString()),
               ));
     }
+  }
+
+  var _obsecureText = true;
+
+  togglePassword() {
+    setState(() {
+      _obsecureText = !_obsecureText;
+    });
   }
 
   @override
@@ -82,9 +95,23 @@ class LoginPage extends StatelessWidget {
                   // password text field
                   CustomTextInput(
                     hintText: "Password",
-                    obscureText: true,
+                    obscureText: _obsecureText,
                     icon: Iconsax.password_check,
                     controller: _pwController,
+                    sufficicon: IconButton(
+                      onPressed: () {
+                        togglePassword();
+                      },
+                      icon: _obsecureText
+                          ? Icon(
+                              Iconsax.eye_slash,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : Icon(
+                              Iconsax.eye,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                    ),
                   ),
 
                   const SizedBox(
@@ -112,7 +139,7 @@ class LoginPage extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary),
                       ),
                       GestureDetector(
-                        onTap: onTap,
+                        onTap: widget.onTap,
                         child: Text(
                           'Register Now',
                           style: TextStyle(

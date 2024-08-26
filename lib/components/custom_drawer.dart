@@ -31,8 +31,13 @@ class CustomDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("H O M E"),
-                  leading: const Icon(Iconsax.home),
+                  title: Text(
+                    "H O M E",
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  leading: Icon(Iconsax.home,
+                      color: Theme.of(context).colorScheme.primary),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -41,8 +46,13 @@ class CustomDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("S E T T I N G S"),
-                  leading: const Icon(Iconsax.setting),
+                  title: Text(
+                    "S E T T I N G S",
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  leading: Icon(Iconsax.setting,
+                      color: Theme.of(context).colorScheme.primary),
                   onTap: () {
                     Navigator.pop(context);
 
@@ -59,11 +69,14 @@ class CustomDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25.0, bottom: 25.0),
             child: ListTile(
-              title: const Text(
+              title: Text(
                 "L O G O U T",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary),
               ),
-              leading: const Icon(Iconsax.logout),
+              leading: Icon(Iconsax.logout,
+                  color: Theme.of(context).colorScheme.primary),
               onTap: logout,
             ),
           ),

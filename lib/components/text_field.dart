@@ -4,6 +4,7 @@ class CustomTextInput extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final IconData? icon;
+  final IconButton? sufficicon;
   final TextEditingController controller;
 
   const CustomTextInput(
@@ -11,7 +12,8 @@ class CustomTextInput extends StatelessWidget {
       required this.hintText,
       required this.obscureText,
       required this.controller,
-      this.icon});
+      this.icon,
+      this.sufficicon});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class CustomTextInput extends StatelessWidget {
               icon,
               color: Theme.of(context).colorScheme.primary,
             ),
+            suffixIcon: sufficicon,
             enabledBorder: OutlineInputBorder(
               borderSide:
                   BorderSide(color: Theme.of(context).colorScheme.tertiary),

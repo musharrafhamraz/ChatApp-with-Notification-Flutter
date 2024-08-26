@@ -4,17 +4,24 @@ import 'package:chat_app/components/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SignUpPage extends StatelessWidget {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pwController = TextEditingController();
-  final TextEditingController _consfirmpwController = TextEditingController();
-
+class SignUpPage extends StatefulWidget {
   final void Function()? onTap;
   SignUpPage({super.key, required this.onTap});
 
-  // login function
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
 
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController _nameController = TextEditingController();
+
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _pwController = TextEditingController();
+
+  final TextEditingController _consfirmpwController = TextEditingController();
+
+  // login function
   void register(BuildContext context) async {
     // get the auth service
     final auth = AuthService();
@@ -36,6 +43,14 @@ class SignUpPage extends StatelessWidget {
                 title: Text("Passwords donot match."),
               ));
     }
+  }
+
+  var _obsecureText = true;
+
+  togglePassword() {
+    setState(() {
+      _obsecureText = !_obsecureText;
+    });
   }
 
   @override
@@ -100,9 +115,23 @@ class SignUpPage extends StatelessWidget {
                   // password text field
                   CustomTextInput(
                     hintText: "Password",
-                    obscureText: true,
+                    obscureText: _obsecureText,
                     icon: Iconsax.password_check,
                     controller: _pwController,
+                    sufficicon: IconButton(
+                      onPressed: () {
+                        togglePassword();
+                      },
+                      icon: _obsecureText
+                          ? Icon(
+                              Iconsax.eye_slash,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : Icon(
+                              Iconsax.eye,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -111,9 +140,23 @@ class SignUpPage extends StatelessWidget {
                   // confirm password text field
                   CustomTextInput(
                     hintText: "Confirm Password",
-                    obscureText: true,
+                    obscureText: _obsecureText,
                     icon: Iconsax.password_check,
                     controller: _consfirmpwController,
+                    sufficicon: IconButton(
+                      onPressed: () {
+                        togglePassword();
+                      },
+                      icon: _obsecureText
+                          ? Icon(
+                              Iconsax.eye_slash,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : Icon(
+                              Iconsax.eye,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                    ),
                   ),
 
                   const SizedBox(
@@ -141,7 +184,7 @@ class SignUpPage extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary),
                       ),
                       GestureDetector(
-                        onTap: onTap,
+                        onTap: widget.onTap,
                         child: Text(
                           'Login Now',
                           style: TextStyle(
