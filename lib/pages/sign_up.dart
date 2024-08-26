@@ -78,6 +78,7 @@ class SignUpPage extends StatelessWidget {
                   // name text field
                   CustomTextInput(
                     hintText: "Full Name",
+                    icon: Iconsax.user,
                     obscureText: false,
                     controller: _nameController,
                   ),
@@ -89,6 +90,7 @@ class SignUpPage extends StatelessWidget {
                   CustomTextInput(
                     hintText: "Email",
                     obscureText: false,
+                    icon: Iconsax.direct,
                     controller: _emailController,
                   ),
                   const SizedBox(
@@ -99,6 +101,7 @@ class SignUpPage extends StatelessWidget {
                   CustomTextInput(
                     hintText: "Password",
                     obscureText: true,
+                    icon: Iconsax.password_check,
                     controller: _pwController,
                   ),
                   const SizedBox(
@@ -109,6 +112,7 @@ class SignUpPage extends StatelessWidget {
                   CustomTextInput(
                     hintText: "Confirm Password",
                     obscureText: true,
+                    icon: Iconsax.password_check,
                     controller: _consfirmpwController,
                   ),
 
@@ -119,7 +123,7 @@ class SignUpPage extends StatelessWidget {
                   // button
 
                   CustomButton(
-                    btnText: 'Sign Up',
+                    btnText: 'S i g n  U p',
                     onTap: () => register(context),
                   ),
                   const SizedBox(

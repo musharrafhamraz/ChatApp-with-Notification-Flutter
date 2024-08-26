@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class CustomTextInput extends StatelessWidget {
   final String hintText;
   final bool obscureText;
+  final IconData? icon;
   final TextEditingController controller;
 
   const CustomTextInput(
       {super.key,
       required this.hintText,
       required this.obscureText,
-      required this.controller});
+      required this.controller,
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,10 @@ class CustomTextInput extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
+            prefixIcon: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide:
                   BorderSide(color: Theme.of(context).colorScheme.tertiary),

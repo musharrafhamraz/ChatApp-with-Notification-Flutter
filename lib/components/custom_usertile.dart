@@ -25,14 +25,14 @@ class UserTile extends StatelessWidget {
       ),
       title: Text(text),
       titleTextStyle: TextStyle(
-        fontSize: 18,
-        color: Theme.of(context).colorScheme.inversePrimary,
-        overflow: TextOverflow.ellipsis,
-      ),
+          fontSize: 18,
+          color: Theme.of(context).colorScheme.inversePrimary,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w600),
       subtitle: Text(lastMessage),
       subtitleTextStyle: TextStyle(
         fontSize: 14,
-        color: Theme.of(context).colorScheme.inversePrimary,
+        color: Theme.of(context).colorScheme.primary,
         overflow: TextOverflow.ellipsis,
       ),
     );

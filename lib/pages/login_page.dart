@@ -72,6 +72,7 @@ class LoginPage extends StatelessWidget {
                   CustomTextInput(
                     hintText: "Email",
                     obscureText: false,
+                    icon: Iconsax.direct,
                     controller: _emailController,
                   ),
                   const SizedBox(
@@ -82,6 +83,7 @@ class LoginPage extends StatelessWidget {
                   CustomTextInput(
                     hintText: "Password",
                     obscureText: true,
+                    icon: Iconsax.password_check,
                     controller: _pwController,
                   ),
 
@@ -92,7 +94,7 @@ class LoginPage extends StatelessWidget {
                   // button
 
                   CustomButton(
-                    btnText: 'Login',
+                    btnText: 'L o g i n',
                     onTap: () => login(context),
                   ),
                   const SizedBox(

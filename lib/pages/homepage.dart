@@ -5,6 +5,7 @@ import 'package:chat_app/pages/profile_page.dart';
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/services/chat_services/chat_service.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,8 +23,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Beep"),
         centerTitle: true,
+        title: const Text("  B  E  E  P"),
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.primary,
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context) => [
               _buildPopupMenuItem(
                 title: 'Profile',
-                iconData: Icons.person,
+                iconData: Iconsax.user,
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ProfilePage()));
@@ -52,7 +53,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: const CustomDrawer(),
-      body: _buildUserList(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: _buildUserList(),
+      ),
     );
   }
 
