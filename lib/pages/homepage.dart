@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var appBarHeight = AppBar().preferredSize.height;
   final ChatService _chatService = ChatService();
-
   final AuthService _authService = AuthService();
 
   @override
@@ -41,12 +40,13 @@ class _HomePageState extends State<HomePage> {
             ),
             itemBuilder: (context) => [
               _buildPopupMenuItem(
-                  title: 'Profile',
-                  iconData: Icons.person,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()));
-                  }),
+                title: 'Profile',
+                iconData: Icons.person,
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
+                },
+              ),
             ],
           ),
         ],
@@ -58,41 +58,70 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildUserList() {
     return StreamBuilder(
-        stream: _chatService.getUsersStream(),
-        builder: (context, snapshot) {
-          // error
+      stream: _chatService.getUsersStream(),
+      builder: (context, snapshot) {
+        // Handle errors
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
 
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          return ListView(
-            children: snapshot.data!
-                .map<Widget>(
-                    (userData) => _buildUserListItem(userData, context))
-                .toList(),
+        // Show loading indicator while waiting for data
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Please Wait.."),
+            ],
           );
-        });
+        }
+
+        // Display the list of users
+        return ListView(
+          children: snapshot.data!
+              .map<Widget>((userData) => _buildUserListItem(userData, context))
+              .toList(),
+        );
+      },
+    );
   }
 
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
-    if (userData["email"] != _authService.getCurrentUser()!.email) {
-      return UserTile(
-        text: userData['name'],
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatPage(
-                recieverEmail: userData["name"],
-                recieverID: userData['uid'],
-              ),
-            ),
+    String currentUserEmail = _authService.getCurrentUser()!.email!;
+    String currentUserId = _authService.getCurrentUser()!.uid;
+
+    if (userData["email"] != currentUserEmail) {
+      String otherUserId = userData['uid'];
+      return FutureBuilder<String>(
+        future: _chatService.getLastMessage(currentUserId, otherUserId),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Loading..."),
+              ],
+            );
+          }
+
+          String lastMessage = snapshot.data ?? "No messages yet";
+
+          return UserTile(
+            text: userData['name'],
+            lastMessage: lastMessage,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                    recieverEmail: userData["name"],
+                    recieverID: userData['uid'],
+                  ),
+                ),
+              );
+            },
           );
         },
       );
@@ -109,10 +138,7 @@ class _HomePageState extends State<HomePage> {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(
-            iconData,
-            color: Colors.black,
-          ),
+          Icon(iconData, color: Colors.black),
           const SizedBox(width: 16), // Adds space between icon and text
           Text(title),
         ],

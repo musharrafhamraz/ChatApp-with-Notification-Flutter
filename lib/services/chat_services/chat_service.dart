@@ -67,4 +67,25 @@ class ChatService {
         .orderBy('timestamp', descending: false)
         .snapshots();
   }
+
+  // Get the last message sent or received between two users
+  Future<String> getLastMessage(String userID, String otherUserID) async {
+    List<String> ids = [userID, otherUserID];
+    ids.sort();
+    String chatRoomID = ids.join('_');
+
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("chat_rooms")
+        .doc(chatRoomID)
+        .collection("messages")
+        .orderBy('timestamp', descending: true)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs.first['message'];
+    } else {
+      return "No messages yet";
+    }
+  }
 }
