@@ -3,6 +3,7 @@ import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/services/chat_services/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ChatPage extends StatelessWidget {
   final String recieverEmail;
@@ -22,8 +23,8 @@ class ChatPage extends StatelessWidget {
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(recieverID, _messageController.text);
     }
-    // clear the text field
 
+    // clear the text field
     _messageController.clear();
   }
 
@@ -33,6 +34,13 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(recieverEmail),
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Iconsax.backward1,
+            size: 40,
+          ),
+        ),
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -132,7 +140,7 @@ class ChatPage extends StatelessWidget {
               child: IconButton(
                   onPressed: sendMessage,
                   icon: const Icon(
-                    Icons.arrow_upward,
+                    Iconsax.send_14,
                     color: Colors.white,
                   )))
         ],

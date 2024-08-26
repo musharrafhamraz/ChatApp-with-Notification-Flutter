@@ -2,6 +2,7 @@ import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/components/custom_button.dart';
 import 'package:chat_app/components/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -43,106 +44,111 @@ class SignUpPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Logo
-                Icon(
-                  Icons.message,
-                  size: 60,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-
-                // Welcome Back text
-
-                Text(
-                  "Let's create an account for you!",
-                  style: TextStyle(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo
+                  Icon(
+                    Iconsax.message,
+                    size: 90,
                     color: Theme.of(context).colorScheme.primary,
-                    fontSize: 16,
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-                // name text field
-                CustomTextInput(
-                  hintText: "Full Name",
-                  obscureText: false,
-                  controller: _nameController,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                  // Welcome Back text
 
-                // email text field
-                CustomTextInput(
-                  hintText: "Email",
-                  obscureText: false,
-                  controller: _emailController,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                // password text field
-                CustomTextInput(
-                  hintText: "Password",
-                  obscureText: true,
-                  controller: _pwController,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                // confirm password text field
-                CustomTextInput(
-                  hintText: "Confirm Password",
-                  obscureText: true,
-                  controller: _consfirmpwController,
-                ),
-
-                const SizedBox(
-                  height: 25,
-                ),
-
-                // button
-
-                CustomButton(
-                  btnText: 'Sign Up',
-                  onTap: () => register(context),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-
-                // register now
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Already a member? ',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
+                  Text(
+                    "Let's create an account for you!",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 16,
                     ),
-                    GestureDetector(
-                      onTap: onTap,
-                      child: Text(
-                        'Login Now',
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+
+                  // name text field
+                  CustomTextInput(
+                    hintText: "Full Name",
+                    obscureText: false,
+                    controller: _nameController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // email text field
+                  CustomTextInput(
+                    hintText: "Email",
+                    obscureText: false,
+                    controller: _emailController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // password text field
+                  CustomTextInput(
+                    hintText: "Password",
+                    obscureText: true,
+                    controller: _pwController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // confirm password text field
+                  CustomTextInput(
+                    hintText: "Confirm Password",
+                    obscureText: true,
+                    controller: _consfirmpwController,
+                  ),
+
+                  const SizedBox(
+                    height: 25,
+                  ),
+
+                  // button
+
+                  CustomButton(
+                    btnText: 'Sign Up',
+                    onTap: () => register(context),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+
+                  // register now
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already a member? ',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      GestureDetector(
+                        onTap: onTap,
+                        child: Text(
+                          'Login Now',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

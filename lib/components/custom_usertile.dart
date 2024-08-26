@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
   final String text;
-  final String lastMessage; // New parameter for the last message
+  final String lastMessage;
   final void Function()? onTap;
   const UserTile(
       {super.key, required this.text, this.onTap, required this.lastMessage});
@@ -38,7 +38,6 @@ class UserTile extends StatelessWidget {
     );
   }
 }
-
 
 // GestureDetector(
 //       onTap: onTap,
