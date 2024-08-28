@@ -5,27 +5,84 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   final String recieverEmail;
   final String recieverID;
-  ChatPage({super.key, required this.recieverEmail, required this.recieverID});
+  const ChatPage({
+    super.key,
+    required this.recieverEmail,
+    required this.recieverID,
+  });
 
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   // text controller
   final TextEditingController _messageController = TextEditingController();
 
   // chat & auth service
   final ChatService _chatService = ChatService();
+
   final AuthService _authService = AuthService();
+
+  // text field focus
+
+  FocusNode myFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // add lsitener to focus node
+
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () => scrollDown(),
+        );
+      }
+    });
+
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => scrollDown(),
+    );
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  // scroll controller
+
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+  }
 
   // send message
   void sendMessage() async {
     // if the text field is not empty
     if (_messageController.text.isNotEmpty) {
-      await _chatService.sendMessage(recieverID, _messageController.text);
+      await _chatService.sendMessage(
+          widget.recieverID, _messageController.text);
+
+      // clear the text field
+      _messageController.clear();
     }
 
-    // clear the text field
-    _messageController.clear();
+    scrollDown();
   }
 
   @override
@@ -33,7 +90,7 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(recieverEmail),
+        title: Text(widget.recieverEmail),
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -61,7 +118,7 @@ class ChatPage extends StatelessWidget {
   Widget _buildMessageList() {
     String senderID = _authService.getCurrentUser()!.uid;
     return StreamBuilder(
-        stream: _chatService.getMessages(recieverID, senderID),
+        stream: _chatService.getMessages(widget.recieverID, senderID),
         builder: (context, snapshot) {
           // error
           if (snapshot.hasError) {
@@ -76,6 +133,7 @@ class ChatPage extends StatelessWidget {
           // has data
 
           return ListView(
+            controller: _scrollController,
             children: snapshot.data!.docs
                 .map((doc) => _buildMessageItem(context, doc))
                 .toList(),
@@ -118,7 +176,6 @@ class ChatPage extends StatelessWidget {
   }
 
   // build user input
-
   Widget _buildUserInput() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25.0),
@@ -130,6 +187,7 @@ class ChatPage extends StatelessWidget {
               hintText: "Type a Message",
               obscureText: false,
               controller: _messageController,
+              focusNode: myFocusNode,
             ),
           ),
           Container(

@@ -6,7 +6,7 @@ import 'package:iconsax/iconsax.dart';
 
 class SignUpPage extends StatefulWidget {
   final void Function()? onTap;
-  SignUpPage({super.key, required this.onTap});
+  const SignUpPage({super.key, required this.onTap});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();

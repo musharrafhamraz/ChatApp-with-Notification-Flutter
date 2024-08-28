@@ -6,6 +6,7 @@ class CustomTextInput extends StatelessWidget {
   final IconData? icon;
   final IconButton? sufficicon;
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   const CustomTextInput(
       {super.key,
@@ -13,7 +14,8 @@ class CustomTextInput extends StatelessWidget {
       required this.obscureText,
       required this.controller,
       this.icon,
-      this.sufficicon});
+      this.sufficicon,
+      this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CustomTextInput extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
         controller: controller,
+        focusNode: focusNode,
         decoration: InputDecoration(
             prefixIcon: Icon(
               icon,
