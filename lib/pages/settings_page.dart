@@ -1,6 +1,7 @@
 import 'package:chat_app/theme/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           foregroundColor: Theme.of(context).colorScheme.primary,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         body: Container(
           decoration: BoxDecoration(

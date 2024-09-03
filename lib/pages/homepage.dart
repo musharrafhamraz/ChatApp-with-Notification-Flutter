@@ -5,6 +5,7 @@ import 'package:chat_app/pages/profile_page.dart';
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/services/chat_services/chat_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.primary,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         actions: [
           PopupMenuButton(
             offset: Offset(0.0, appBarHeight),

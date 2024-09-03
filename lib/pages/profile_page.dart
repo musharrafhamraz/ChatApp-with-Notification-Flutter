@@ -1,5 +1,6 @@
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -45,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         foregroundColor: Theme.of(context).colorScheme.primary,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Center(
         child: Column(

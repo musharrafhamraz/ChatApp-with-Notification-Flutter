@@ -2,6 +2,7 @@ import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/components/custom_button.dart';
 import 'package:chat_app/components/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -51,6 +52,14 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _obsecureText = !_obsecureText;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Set the status bar content to dark (black/grey)
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
   @override

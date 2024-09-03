@@ -3,6 +3,7 @@ import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/services/chat_services/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ChatPage extends StatefulWidget {
@@ -101,6 +102,9 @@ class _ChatPageState extends State<ChatPage> {
         ),
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.primary,
+        systemOverlayStyle: Theme.of(context).brightness == Brightness.dark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark,
       ),
       body: Column(
         children: [
